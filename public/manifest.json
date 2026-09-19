@@ -1,0 +1,33 @@
+{
+  "short_name": "AirfieldOS",
+  "name": "AirfieldOS GA Aerodrome Management System",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#09090b",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "description": "General Aviation Aerodrome Management, Runway Traffic, CAP 797 ATSU Logbook & Billing Hub for desktop and tower workstations.",
+  "categories": ["utilities", "productivity", "aviation"],
+  "shortcuts": [
+    {
+      "name": "Log Landed Aircraft",
+      "short_name": "Log Landed",
+      "description": "Rapid touchdown entry with automatic landing fee calculation",
+      "url": "/?action=log_landed"
+    },
+    {
+      "name": "CAP 797 ATSU Logbook",
+      "short_name": "Radio Log",
+      "description": "CAA statutory aerodrome movements logbook",
+      "url": "/?tab=ATSU_LOGBOOK"
+    }
+  ]
+}
