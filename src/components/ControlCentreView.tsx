@@ -21,6 +21,7 @@ import {
   FileText,
   Send,
   Droplet,
+  Eye,
 } from 'lucide-react';
 import { calculateFlightFees } from '../utils/feeCalculator';
 
@@ -35,6 +36,7 @@ interface ControlCentreViewProps {
   onOpenDecisionPanel: () => void;
   onGenerateInvoice: (movement: AircraftMovement) => void;
   onQuickFuelUplift: (movementId: string, liters: number) => void;
+  onOpenYoloVision?: () => void;
 }
 
 export const ControlCentreView: React.FC<ControlCentreViewProps> = ({
@@ -48,6 +50,7 @@ export const ControlCentreView: React.FC<ControlCentreViewProps> = ({
   onOpenDecisionPanel,
   onGenerateInvoice,
   onQuickFuelUplift,
+  onOpenYoloVision,
 }) => {
   const activeMovement =
     movements.find((m) => m.id === selectedMovementId) ||
@@ -164,7 +167,26 @@ export const ControlCentreView: React.FC<ControlCentreViewProps> = ({
 
       {/* Aerodrome Map & Flight Telemetry Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 space-y-3">
+          {onOpenYoloVision && (
+            <div className="flex items-center justify-between px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-white font-mono text-xs shadow-xs">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span className="font-bold text-slate-200">YOLO Optical Surface Tracking Active</span>
+                <span className="text-[10px] text-slate-400 hidden sm:inline">
+                  (4 Cameras · 71.4 FPS · Real-Time Aircraft Bounding Boxes)
+                </span>
+              </div>
+              <button
+                onClick={onOpenYoloVision}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] transition-colors"
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>Open YOLO Radar</span>
+              </button>
+            </div>
+          )}
+
           <AerodromeMap
             runways={runways}
             parkingBays={parkingBays}

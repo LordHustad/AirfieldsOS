@@ -26,6 +26,8 @@ import { LogLandedAircraftModal } from './components/LogLandedAircraftModal';
 import { DesktopCommandPalette } from './components/DesktopCommandPalette';
 import { DesktopShortcutsModal } from './components/DesktopShortcutsModal';
 import { DesktopTowerDualMonitorModal } from './components/DesktopTowerDualMonitorModal';
+import { InteractiveDemoVideoModal } from './components/InteractiveDemoVideoModal';
+import { YoloVisionView } from './components/YoloVisionView';
 import { generateInvoiceForMovement } from './utils/feeCalculator';
 import {
   getDefaultDatabaseState,
@@ -70,6 +72,7 @@ export default function App() {
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [isDualMonitorOpen, setIsDualMonitorOpen] = useState(false);
+  const [isDemoVideoOpen, setIsDemoVideoOpen] = useState(false);
   const [isHighDensity, setIsHighDensity] = useState<boolean>(() => {
     try {
       return localStorage.getItem('airfieldos_density') === 'high';
@@ -141,6 +144,7 @@ export default function App() {
         setIsCommandPaletteOpen(false);
         setIsShortcutsOpen(false);
         setIsDualMonitorOpen(false);
+        setIsDemoVideoOpen(false);
         setIsLogModalOpen(false);
         setIsPPRModalOpen(false);
         setIsLandedModalOpen(false);
@@ -155,6 +159,10 @@ export default function App() {
         case '?':
           e.preventDefault();
           setIsShortcutsOpen(true);
+          break;
+        case 'v':
+          e.preventDefault();
+          setIsDemoVideoOpen((prev) => !prev);
           break;
         case 'l':
           e.preventDefault();
@@ -208,6 +216,11 @@ export default function App() {
         case '7':
           e.preventDefault();
           setActiveTab('GM_GUIDE');
+          break;
+        case '8':
+        case 'y':
+          e.preventDefault();
+          setActiveTab('YOLO_VISION');
           break;
       }
     };
@@ -613,6 +626,7 @@ export default function App() {
         onOpenShortcuts={() => setIsShortcutsOpen(true)}
         onToggleFullscreen={toggleFullscreen}
         isFullscreen={isFullscreen}
+        onOpenDemoVideo={() => setIsDemoVideoOpen(true)}
       />
 
       {/* Main Operational Views */}
@@ -629,6 +643,7 @@ export default function App() {
             onOpenDecisionPanel={() => setActiveTab('DECISION_PANEL')}
             onGenerateInvoice={handleGenerateInvoice}
             onQuickFuelUplift={handleQuickFuelUplift}
+            onOpenYoloVision={() => setActiveTab('YOLO_VISION')}
           />
         )}
 
@@ -700,7 +715,20 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'GM_GUIDE' && <GMWorkloadGuideView />}
+        {activeTab === 'GM_GUIDE' && (
+          <GMWorkloadGuideView onOpenDemoVideo={() => setIsDemoVideoOpen(true)} />
+        )}
+
+        {activeTab === 'YOLO_VISION' && (
+          <YoloVisionView
+            movements={movements}
+            parkingBays={parkingBays}
+            onAddLandedAircraft={handleAddLandedAircraft}
+            onGenerateInvoice={handleGenerateInvoice}
+            onSelectTab={setActiveTab}
+            onQuickLogAtsu={() => setIsLogModalOpen(true)}
+          />
+        )}
       </main>
 
       {/* Quick Action Toast Alert Notification */}
@@ -757,6 +785,7 @@ export default function App() {
         onToggleFullscreen={toggleFullscreen}
         movements={movements}
         onSelectMovement={setSelectedMovementId}
+        onOpenDemoVideo={() => setIsDemoVideoOpen(true)}
       />
 
       {/* Desktop Workstation Keyboard Shortcuts Cheat Sheet (?) */}
@@ -775,6 +804,17 @@ export default function App() {
         parkingBays={parkingBays}
         movements={movements}
         circuitCount={circuitCount}
+      />
+
+      {/* Interactive Product Demo Video & Walkthrough Modal */}
+      <InteractiveDemoVideoModal
+        isOpen={isDemoVideoOpen}
+        onClose={() => setIsDemoVideoOpen(false)}
+        onSelectTab={setActiveTab}
+        onOpenLandedModal={() => setIsLandedModalOpen(true)}
+        onOpenQuickLogModal={() => setIsLogModalOpen(true)}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+        onOpenDualMonitor={() => setIsDualMonitorOpen(true)}
       />
     </div>
   );

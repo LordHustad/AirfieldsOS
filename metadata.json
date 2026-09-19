@@ -1,6 +1,6 @@
 {
   "name": "AirfieldOS GA",
   "description": "End-to-end operations platform for General Aviation airfield general managers: aerodrome control centre, inbound/outbound decision panel, statutory CAA ATSU movements logbook, and automated fee & invoice engine.",
-  "requestFramePermissions": [],
+  "requestFramePermissions": ["camera"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

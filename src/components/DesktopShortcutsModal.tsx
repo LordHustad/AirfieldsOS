@@ -32,6 +32,7 @@ export const DesktopShortcutsModal: React.FC<DesktopShortcutsModalProps> = ({
         { key: 'L', description: 'Log Landed Aircraft (Touchdown recording with instant fee calculation)' },
         { key: 'P', description: 'Create New PPR (Prior Permission Required) booking' },
         { key: 'R', description: 'Log ATSU / Radio Message into CAA CAP 797 ledger' },
+        { key: 'Y', description: 'Open YOLO Computer Vision & Surface Movement Tracker' },
       ],
     },
     {
@@ -41,6 +42,7 @@ export const DesktopShortcutsModal: React.FC<DesktopShortcutsModalProps> = ({
         { key: 'M', description: 'Launch Dual-Monitor Secondary Tower Display' },
         { key: 'D', description: 'Toggle High-Density Tower Mode (Widescreen multi-column)' },
         { key: 'F', description: 'Toggle Fullscreen Tower Workstation' },
+        { key: 'V', description: 'Watch Interactive Demo Video Walkthrough' },
         { key: '?', description: 'Show this keyboard shortcuts guide' },
         { key: 'Esc', description: 'Close any active modal, dialog, or drawer' },
       ],
@@ -55,6 +57,7 @@ export const DesktopShortcutsModal: React.FC<DesktopShortcutsModalProps> = ({
         { key: '5', description: 'Jump to 5. Airfield Setup & Runways' },
         { key: '6', description: 'Jump to 6. Backend Data Manager & Backup' },
         { key: '7', description: 'Jump to 7. GM Workload & SOP Guide' },
+        { key: '8', description: 'Jump to 8. YOLO AI Vision & Tracking' },
       ],
     },
   ];

@@ -22,6 +22,8 @@ import {
   Maximize,
   Minimize,
   LayoutGrid,
+  Play,
+  Eye,
 } from 'lucide-react';
 import { AirfieldWeather, AirfieldProfile } from '../types/airfield';
 import { SaaSUser } from '../types/auth';
@@ -33,7 +35,8 @@ export type ActiveAppTab =
   | 'BILLING_ENGINE'
   | 'AIRFIELD_SETUP'
   | 'BACKEND_DATA'
-  | 'GM_GUIDE';
+  | 'GM_GUIDE'
+  | 'YOLO_VISION';
 
 interface HeaderProps {
   profile: AirfieldProfile;
@@ -54,6 +57,7 @@ interface HeaderProps {
   onOpenShortcuts?: () => void;
   onToggleFullscreen?: () => void;
   isFullscreen?: boolean;
+  onOpenDemoVideo?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -75,6 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenShortcuts,
   onToggleFullscreen,
   isFullscreen = false,
+  onOpenDemoVideo,
 }) => {
   return (
     <header className="border-b border-zinc-200 bg-white/95 backdrop-blur sticky top-0 z-40 px-3 sm:px-4 py-2 shadow-xs">
@@ -144,6 +149,21 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Action Buttons, Desktop Tools & Operator Session Chip */}
         <div className="flex flex-wrap items-center gap-2">
+          {/* Interactive Demo Video Walkthrough Trigger */}
+          {onOpenDemoVideo && (
+            <button
+              onClick={onOpenDemoVideo}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-rose-200 hover:border-rose-400 bg-rose-50/90 hover:bg-rose-100 text-rose-700 text-xs font-mono font-bold transition-all shadow-2xs group"
+              title="Watch Demo Video & Interactive Walkthrough of All Functions"
+            >
+              <Play className="w-3 h-3 fill-rose-600 text-rose-600 group-hover:scale-110 transition-transform" />
+              <span>Demo Video</span>
+              <span className="hidden sm:inline text-[9px] bg-rose-200 text-rose-800 px-1 py-0.2 rounded font-mono">
+                6 MIN
+              </span>
+            </button>
+          )}
+
           {/* Universal Desktop Command Palette Search */}
           {onOpenCommandPalette && (
             <button
@@ -356,6 +376,22 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <HelpCircle className="w-3.5 h-3.5" />
             <span>7. GM Guide</span>
+          </button>
+
+          <button
+            onClick={() => onSelectTab('YOLO_VISION')}
+            className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 whitespace-nowrap ${
+              activeTab === 'YOLO_VISION'
+                ? 'bg-emerald-600 text-white font-medium shadow-xs'
+                : 'text-emerald-700 hover:text-emerald-950 hover:bg-emerald-50 border border-emerald-200/60 bg-emerald-50/40'
+            }`}
+            title="YOLO Aircraft Identification & Surface Tracking (Press Y)"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span>8. YOLO Vision</span>
+            <span className="text-[9px] px-1 py-0.2 rounded bg-emerald-700 text-white font-mono">
+              AI
+            </span>
           </button>
         </nav>
 

@@ -13,11 +13,45 @@ import {
   Fuel,
   Volume2,
   Users,
+  Play,
 } from 'lucide-react';
 
-export const GMWorkloadGuideView: React.FC = () => {
+interface GMWorkloadGuideViewProps {
+  onOpenDemoVideo?: () => void;
+}
+
+export const GMWorkloadGuideView: React.FC<GMWorkloadGuideViewProps> = ({ onOpenDemoVideo }) => {
   return (
     <div className="space-y-8 font-mono max-w-5xl mx-auto">
+      {/* Video Walkthrough Promotion Banner */}
+      {onOpenDemoVideo && (
+        <div className="bg-gradient-to-r from-red-950/40 via-zinc-900 to-zinc-900 border border-red-900/50 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 border border-red-500/30 flex items-center justify-center shrink-0">
+              <Play className="w-5 h-5 fill-red-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                Watch Official AirfieldOS Video Walkthrough
+                <span className="text-[10px] bg-red-900/80 text-red-300 border border-red-700 px-2 py-0.5 rounded-full font-sans">
+                  6-Minute Tour
+                </span>
+              </h3>
+              <p className="text-xs text-zinc-400">
+                Experience all 6 key aerodrome workflows in an automated interactive video simulation or copy the recording script.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onOpenDemoVideo}
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-all shadow-md shrink-0"
+          >
+            <Play className="w-3.5 h-3.5 fill-white" />
+            <span>Watch Demo Video</span>
+          </button>
+        </div>
+      )}
+
       {/* Hero Overview */}
       <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl relative overflow-hidden">
         <div className="flex items-center gap-3 mb-4">

@@ -17,6 +17,8 @@ import {
   Sparkles,
   Command,
   X,
+  Play,
+  Eye,
 } from 'lucide-react';
 import { ActiveAppTab } from './Header';
 import { AircraftMovement } from '../types/airfield';
@@ -34,6 +36,7 @@ interface DesktopCommandPaletteProps {
   onToggleFullscreen: () => void;
   movements: AircraftMovement[];
   onSelectMovement?: (id: string) => void;
+  onOpenDemoVideo?: () => void;
 }
 
 export const DesktopCommandPalette: React.FC<DesktopCommandPaletteProps> = ({
@@ -49,6 +52,7 @@ export const DesktopCommandPalette: React.FC<DesktopCommandPaletteProps> = ({
   onToggleFullscreen,
   movements,
   onSelectMovement,
+  onOpenDemoVideo,
 }) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -66,6 +70,17 @@ export const DesktopCommandPalette: React.FC<DesktopCommandPaletteProps> = ({
 
   // Filter actions and aircraft
   const defaultActions = [
+    {
+      id: 'demo-video',
+      title: 'Watch Product Demo Video & Interactive Walkthrough',
+      category: 'Guided Tour',
+      icon: Play,
+      shortcut: 'V',
+      action: () => {
+        onClose();
+        if (onOpenDemoVideo) onOpenDemoVideo();
+      },
+    },
     {
       id: 'log-landed',
       title: 'Log Landed Aircraft (Touchdown)',
@@ -97,6 +112,17 @@ export const DesktopCommandPalette: React.FC<DesktopCommandPaletteProps> = ({
       action: () => {
         onClose();
         onOpenQuickLogModal();
+      },
+    },
+    {
+      id: 'yolo-vision',
+      title: 'YOLO Aircraft Vision & Surface Tracker (Computer Vision)',
+      category: 'Air Traffic',
+      icon: Eye,
+      shortcut: 'Y',
+      action: () => {
+        onClose();
+        onSelectTab('YOLO_VISION');
       },
     },
     {
@@ -207,6 +233,17 @@ export const DesktopCommandPalette: React.FC<DesktopCommandPaletteProps> = ({
       action: () => {
         onClose();
         onSelectTab('GM_GUIDE');
+      },
+    },
+    {
+      id: 'tab-yolo-vision',
+      title: 'Go to 8. YOLO Optical Vision & Tracking',
+      category: 'Navigation',
+      icon: Eye,
+      shortcut: '8',
+      action: () => {
+        onClose();
+        onSelectTab('YOLO_VISION');
       },
     },
   ];
