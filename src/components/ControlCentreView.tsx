@@ -65,6 +65,14 @@ export const ControlCentreView: React.FC<ControlCentreViewProps> = ({
 
   const totalFuelDispensedToday = movements.reduce((sum, m) => sum + (m.fuelUpliftLiters || 0), 0);
 
+  const hardstandingBays = parkingBays.filter((b) => b.type === 'HARDSTANDING');
+  const hardstandingOccupied = hardstandingBays.filter((b) => b.occupiedByCallsign !== null).length;
+  const hardstandingTotal = hardstandingBays.length || 4;
+
+  const grassBays = parkingBays.filter((b) => b.type === 'GRASS_TIEDOWN');
+  const grassOccupied = grassBays.filter((b) => b.occupiedByCallsign !== null).length;
+  const grassTotal = grassBays.length || 8;
+
   const selectedFlightFees = activeMovement ? calculateFlightFees(activeMovement) : null;
 
   return (
@@ -98,7 +106,9 @@ export const ControlCentreView: React.FC<ControlCentreViewProps> = ({
             Aircraft On Ground
           </span>
           <span className="text-2xl font-bold text-zinc-950">{onGroundCount}</span>
-          <span className="text-[10px] text-zinc-500 block mt-0.5">Apron & Hangars</span>
+          <span className="text-[10px] text-zinc-500 block mt-0.5">
+            {hardstandingOccupied}/{hardstandingTotal} Main · {grassOccupied}/{grassTotal} Sec
+          </span>
         </div>
 
         {/* Fuel Farm AVGAS 100LL */}
